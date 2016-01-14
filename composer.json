@@ -1,5 +1,5 @@
 {
-  "name": "aliyun/cloudsearch-php-sdk",
+  "name": "wallstreetcn/cloudsearch-php-sdk",
   "type": "library",
   "description": "aliyun's cloudsearch php sdk",
   "keywords": ["aliyun","cloudsearch"],
@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-0": {
-      "Wallstreetcn\\CloudSearch\\": "src/Wallstreetcn/Thirdparty"
+      "Aliyun\\CloudSearch\\": "src/Wallstreetcn/Thirdparty"
     }
   }
 }
