@@ -17,7 +17,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+namespace Aliyun\CloudSearch;
+
 /**
  * opensearch 文档接口。
  *

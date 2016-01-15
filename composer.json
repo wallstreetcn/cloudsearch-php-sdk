@@ -14,8 +14,8 @@
     "php": ">=5.3.0"
   },
   "autoload": {
-    "psr-0": {
-      "Aliyun\\CloudSearch\\": "src/Wallstreetcn/Thirdparty"
+    "psr-4": {
+      "Aliyun\\CloudSearch\\": "src/Aliyun/"
     }
   }
 }
