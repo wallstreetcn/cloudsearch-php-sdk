@@ -178,7 +178,7 @@ class CloudsearchDoc {
    *
    * @param array|string $docs 此docs为用户push的数据，此字段为json_encode的字符串或者数据。
    * @param string $tableName 操作的表名。
-   * @throws Exception
+   * @throw \Exception
    * @return string 请求API并返回相应的结果。
    */
   private function action($docs, $tableName, $signMode = self::SIGN_MODE) {
@@ -187,7 +187,7 @@ class CloudsearchDoc {
     }
 
     if (!is_array($docs) || empty($docs) || !is_array($docs[0])) {
-      throw new Exception('Operation failed. The docs is not correct.');
+      throw new \Exception('Operation failed. The docs is not correct.');
     }
 
     $params = array(
@@ -257,12 +257,12 @@ class CloudsearchDoc {
       if ($lineNo == 0) {
         $header = $data;
         if (count(array_flip($data)) != count($data)) {
-          throw new Exception('There are some multi fields in your header.');
+          throw new \Exception('There are some multi fields in your header.');
         }
 
         $primaryKeyPos = array_search($primaryKey, $header);
         if (false === $primaryKey) {
-          throw new Exception("The primary key '{$primaryKey}' is not exists.");
+          throw new \Exception("The primary key '{$primaryKey}' is not exists.");
         }
       } else {
         if ($lineNo < $offset) {
@@ -270,7 +270,7 @@ class CloudsearchDoc {
         }
 
         if (count($data) != count($header)) {
-          throw new Exception("The number of columns of values is not matched
+          throw new \Exception("The number of columns of values is not matched
               the number of header of primary key '{$data[$primaryKeyPos]}'.
               Latest successful posted primary key number is '{$latestPrimaryKey}'.");
         }
@@ -295,7 +295,7 @@ class CloudsearchDoc {
           $txt = $this->add($buffer, $tableName);
           $return = json_decode($txt, true);
           if ('OK' != $return['status']) {
-            throw new Exception("Api returns error: " . $txt .
+            throw new \Exception("Api returns error: " . $txt .
             ". Latest successful posted primary key is {$latestPrimaryKey}.");
           } else {
             // 计算每秒钟的push的频率并如果超过频率则sleep。
@@ -333,7 +333,7 @@ class CloudsearchDoc {
     if (!empty($buffer)) {
       $return = json_decode($this->add($buffer, $tableName), true);
       if (self::PUSH_RETURN_STATUS_OK != $return['status']) {
-        throw new Exception($return['errors'][0]['message'] .
+        throw new \Exception($return['errors'][0]['message'] .
             ". Latest successful posted line number is {$latestLine}.");
       }
     }
@@ -381,7 +381,7 @@ class CloudsearchDoc {
    * @param int $offset 指定偏移行数，如果非0，则从当前行一下的数据开始导入。默认值为：1
    * @param number $maxSize 指定每次导入到api接口的数据量的大小，单位MB，默认值为：4
    * @param int $frequence 指定每秒钟导入的频率，单位次/秒，默认值为：4
-   * @throws Exception 如果在导入的过程中由于字段问题或接口问题则抛出异常。
+   * @throw \Exception 如果在导入的过程中由于字段问题或接口问题则抛出异常。
    * @return string 返回导入成功标志。
    */
   public function pushHADocFile($fileName, $tableName, $offset = 1,
@@ -446,7 +446,7 @@ class CloudsearchDoc {
             $return = json_decode($this->add($buffer, $tableName), true);
             // 如果push不成功则抛出异常。
             if ('OK' != $return['status']) {
-              throw new Exception("Api returns error. " . $return['errors'][0]['message']);
+              throw new \Exception("Api returns error. " . $return['errors'][0]['message']);
             } else {
               // 如果push成功，则计算每秒钟的push的频率并如果超过频率则sleep。
               $lastLineNumber = $lineNumber;
@@ -522,19 +522,19 @@ class CloudsearchDoc {
       if (!empty($buffer)) {
         $return = json_decode($this->add($buffer, $tableName), true);
         if (self::PUSH_RETURN_STATUS_OK != $return['status']) {
-          throw new Exception("Api returns error. " . $return['errors'][0]['message']);
+          throw new \Exception("Api returns error. " . $return['errors'][0]['message']);
         }
       }
 
       if (!empty($doc['fields'])) {
-        throw new Exception('Fail to push doc:' . json_encode($doc));
+        throw new \Exception('Fail to push doc:' . json_encode($doc));
       }
 
       return json_encode(
         array('status' => 'OK', 'message' => 'The data is posted successfully.')
       );
     } catch (Exception $e) {
-      throw new Exception(
+      throw new \Exception(
         $e->getMessage() .
         '. Latest posted successful line no is ' . $lastLineNumber
       );
@@ -544,13 +544,13 @@ class CloudsearchDoc {
   /**
    * 创建一个文件指针资源。
    * @param string $fileName
-   * @throws Exception
+   * @throw \Exception
    * @return resource 返回文件指针。
    */
   private function _connect($fileName) {
     $reader = fopen($fileName, "r");
     if (!$reader) {
-      throw new Exception("The file is not exists or not readabled. Please
+      throw new \Exception("The file is not exists or not readabled. Please
           check your file.");
     }
     return $reader;
@@ -571,7 +571,7 @@ class CloudsearchDoc {
       $value = substr($string, $pos + 1);
       return array($key, $value);
     } else {
-      throw new Exception('The are no key and value in the field.');
+      throw new \Exception('The are no key and value in the field.');
     }
   }
 

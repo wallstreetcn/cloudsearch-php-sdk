@@ -203,16 +203,16 @@ class CloudsearchIndex {
    *
    * @param int $page 指定的页码。
    *
-   * @throws Exception 如果参数不正确，则抛出此异常。
+   * @throw \Exception 如果参数不正确，则抛出此异常。
    *
    * @access private
    */
   private function _checkPageClause($page) {
     if (NULL == $page || !is_int($page)) {
-      throw new Exception('$page is not an integer.');
+      throw new \Exception('$page is not an integer.');
     }
     if ($page <= 0) {
-      throw new Exception('$page is not greater than or equal to 0.');
+      throw new \Exception('$page is not greater than or equal to 0.');
     }
   }
 
@@ -221,16 +221,16 @@ class CloudsearchIndex {
    *
    * @param int $pageSize 每页显示的记录条数。
    *
-   * @throws Exception 参数不合法
+   * @throw \Exception 参数不合法
    *
    * @access private
    */
   private function _checkPageSizeClause($pageSize) {
     if (NULL == $pageSize || !is_int($pageSize)) {
-      throw new Exception('$pageSize is not an integer.');
+      throw new \Exception('$pageSize is not an integer.');
     }
     if ($pageSize <= 0) {
-      throw new Exception('$pageSize is not greater than 0.');
+      throw new \Exception('$pageSize is not greater than 0.');
     }
   }
 }

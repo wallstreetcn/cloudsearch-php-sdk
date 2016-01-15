@@ -431,7 +431,7 @@ class CloudsearchClient {
    * @param string $url 请求的URI。
    * @param array $params 请求的参数数组。
    * @param string $method 请求方法，默认为self::METHOD。
-   * @throws Exception
+   * @throw \Exception
    * @return string
    */
   private function _socket($url, $params = array(), $method = self::METHOD) {
@@ -458,7 +458,7 @@ class CloudsearchClient {
     stream_set_timeout($socket, $this->timeout);
 
     if (!$socket) {
-      throw new Exception("Connect " . $parse['host'] . ' fail.');
+      throw new \Exception("Connect " . $parse['host'] . ' fail.');
     }
 
     $response = '';
@@ -564,13 +564,13 @@ class CloudsearchClient {
   /**
    * 解析URL并生成host、schema、path、query等信息。
    * @param string $url
-   * @throws Exception
+   * @throw \Exception
    * @return array
    */
   private function _parseUrl($url) {
     $parse = parse_url($url);
     if (empty($parse) || !is_array($parse)) {
-      throw new Exception("Host is empty.");
+      throw new \Exception("Host is empty.");
     }
 
     if (!isset($parse['port']) || !$parse['port']) {
