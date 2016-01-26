@@ -455,11 +455,11 @@ class CloudsearchClient {
         $this->connect_timeout
     );
 
-    stream_set_timeout($socket, $this->timeout);
-
     if (!$socket) {
       throw new \Exception("Connect " . $parse['host'] . ' fail.');
     }
+
+    stream_set_timeout($socket, $this->timeout);
 
     $response = '';
     fwrite($socket, $content);
